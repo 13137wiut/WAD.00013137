@@ -15,15 +15,13 @@ namespace WAD._00013137.DAL
 			IConfiguration configuration
 		)
 		{
-			// Adding connection string to sql
 			services.AddDbContext<IssueTrackerContext>(options =>
 				options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-			// Depedency injection 
 			services.AddScoped<IUserRepository, UserRepository>();
+
 			services.AddScoped<IIssueRepository, IssueRepository>();
 
-			// Adding profile
 			services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 			return services;
