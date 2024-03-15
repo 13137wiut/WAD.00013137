@@ -8,8 +8,8 @@ namespace WAD._00013137.MappingProfiles
 	{
 		public MappingProfile()
 		{
-			CreateMap<Issue, IssueDto>();
-			CreateMap<User, UserDto>();
+			CreateMap<Issue, IssueDto>().ReverseMap();
+			CreateMap<User, UserDto>().ReverseMap();
 		}
 	}
 }
