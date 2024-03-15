@@ -1,3 +1,5 @@
+using WAD._00013137.DAL;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +8,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Adding dal configs
+builder.Services.DalConfiguration(builder.Configuration);
 
 var app = builder.Build();
 
