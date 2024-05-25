@@ -22,7 +22,7 @@ namespace WAD._00013137.Controllers
 		[HttpGet]
 		public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers()
 		{
-			var users = await _userRepository.GetAllUsersAsync();
+			var users = await _userRepository.GetAllAsync();
 			var userDtos = _mapper.Map<IEnumerable<UserDto>>(users);
 			return Ok(userDtos);
 		}
@@ -30,7 +30,7 @@ namespace WAD._00013137.Controllers
 		[HttpGet("{id}")]
 		public async Task<ActionResult<UserDto>> GetUser(int id)
 		{
-			var user = await _userRepository.GetUserByIdAsync(id);
+			var user = await _userRepository.GetByIdAsync(id);
 			if (user == null) return NotFound();
 			var userDto = _mapper.Map<UserDto>(user);
 			return Ok(userDto);
@@ -40,7 +40,7 @@ namespace WAD._00013137.Controllers
 		public async Task<ActionResult<UserDto>> PostUser(UserDto userDto)
 		{
 			var user = _mapper.Map<User>(userDto);
-			await _userRepository.CreateUserAsync(user);
+			await _userRepository.AddAsync(user);
 			return Ok(userDto);
 		}
 
@@ -48,21 +48,21 @@ namespace WAD._00013137.Controllers
 		public async Task<IActionResult> PutUser(int id, UserDto userDto)
 		{
 			if (id != userDto.Id) return BadRequest();
-			var user = await _userRepository.GetUserByIdAsync(id);
+			var user = await _userRepository.GetByIdAsync(id);
 			if (user == null) return NotFound();
 
 			_mapper.Map(userDto, user);
-			await _userRepository.UpdateUserAsync(user);
+			await _userRepository.UpdateAsync(user);
 			return Ok("The record with " + id + " has been updated!");
 		}
 
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteUser(int id)
 		{
-			var user = await _userRepository.GetUserByIdAsync(id);
+			var user = await _userRepository.GetByIdAsync(id);
 			if (user == null) return NotFound();
 
-			await _userRepository.DeleteUserAsync(id);
+			await _userRepository.DeleteAsync(id);
 			return Ok("Record with " + id + " has been deleted!");
 		}
 	}

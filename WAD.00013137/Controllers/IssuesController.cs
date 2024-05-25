@@ -22,7 +22,7 @@ namespace WAD._00013137.Controllers
 		[HttpGet]
 		public async Task<ActionResult<IEnumerable<IssueDto>>> GetIssues()
 		{
-			var issues = await _issueRepository.GetAllIssuesAsync();
+			var issues = await _issueRepository.GetAllAsync();
 			var issueDtos = _mapper.Map<IEnumerable<IssueDto>>(issues);
 			return Ok(issueDtos);
 		}
@@ -30,7 +30,7 @@ namespace WAD._00013137.Controllers
 		[HttpGet("{id}")]
 		public async Task<ActionResult<IssueDto>> GetIssue(int id)
 		{
-			var issue = await _issueRepository.GetIssueByIdAsync(id);
+			var issue = await _issueRepository.GetByIdAsync(id);
 			if (issue == null) return NotFound();
 			var issueDto = _mapper.Map<IssueDto>(issue);
 			return Ok(issueDto);
@@ -40,7 +40,7 @@ namespace WAD._00013137.Controllers
 		public async Task<ActionResult<IssueDto>> PostIssue(IssueDto issueDto)
 		{
 			var issue = _mapper.Map<Issue>(issueDto);
-			await _issueRepository.CreateIssueAsync(issue);
+			await _issueRepository.AddAsync(issue);
 			return Ok(issueDto);
 		}
 
@@ -48,21 +48,21 @@ namespace WAD._00013137.Controllers
 		public async Task<IActionResult> PutIssue(int id, IssueDto issueDto)
 		{
 			if (id != issueDto.Id) return BadRequest();
-			var issue = await _issueRepository.GetIssueByIdAsync(id);
+			var issue = await _issueRepository.GetByIdAsync(id);
 			if (issue == null) return NotFound();
 
 			_mapper.Map(issueDto, issue);
-			await _issueRepository.UpdateIssueAsync(issue);
+			await _issueRepository.UpdateAsync(issue);
 			return Ok("The record with " + id + " has been updated!");
 		}
 
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteIssue(int id)
 		{
-			var issue = await _issueRepository.GetIssueByIdAsync(id);
+			var issue = await _issueRepository.GetByIdAsync(id);
 			if (issue == null) return NotFound();
 
-			await _issueRepository.DeleteIssueAsync(id);
+			await _issueRepository.DeleteAsync(id);
 			return Ok("Record with " + id + " has been deleted!");
 		}
 	}

@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using WAD._00013137.DAL.Interfaces;
 using WAD._00013137.Data;
+using WAD._00013137.Models;
 using WAD._00013137.Services;
 
 namespace WAD._00013137.DAL
